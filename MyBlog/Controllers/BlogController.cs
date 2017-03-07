@@ -1,10 +1,13 @@
-﻿using MyBlog.Core.Abstract;
+﻿#region Usings
+using MyBlog.Core.Abstract;
 using MyBlog.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
+#endregion
 
 namespace MyBlog.Controllers
 {
@@ -20,8 +23,10 @@ namespace MyBlog.Controllers
 
         public ViewResult Posts(int p = 1)
         {
+
+
             //pick latest 10 posts
-            var posts = _blogRepository.Posts;
+            var posts = _blogRepository.Posts.Include("Category").Include("Tags");
             var listViewModel = new ListViewModel
             {
                 Posts = posts,

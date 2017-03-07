@@ -1,4 +1,15 @@
 ﻿@model MyBlog.Core.Objects.Post
+@using MyBlog.Infrastructure
+
+@helper Tags(System.Web.Mvc.HtmlHelper htmlHelper, ICollection<MyBlog.Core.Objects.Tag> tags)
+{
+foreach (var tag in tags)
+{
+        <div class="tags-div">
+            @MyBlog.Infrastructure.ActionLinkExtensions.TagLink(htmlHelper, tag)
+        </div>
+}
+}
 
 <div class="post">
     <div class="post-meta">
@@ -6,7 +17,7 @@
 
             <!--Heading-->
             <div class="post-title">
-                @*<h2>@Html.PostLink(Model)</h2>*@
+                <h2>@Html.PostLink(Model)</h2>               
             </div>
 
         </div>
@@ -15,12 +26,12 @@
 
             <!--Category-->
             <div class="post-category">
-                <span>Category: @*</span>@Html.CategoryLink(Model.Category)*@
+                <span>Category: </span>@Html.CategoryLink(Model.Category)
             </div>
 
             <!--Tags-->
             <div class="post-tags">
-                <span>Tags:</span>@*@Helpers.Tags(Html, Model.Tags)*@
+                <span>Tags:</span>@Tags(Html, Model.Tags)
             </div>
 
             <!--Posted date-->
